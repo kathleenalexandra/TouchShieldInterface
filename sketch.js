@@ -4,12 +4,8 @@ var portName = '/dev/cu.usbmodem1411';
 var mpos = 0;
 var inByte;
 
-
-var r, g, b;
-
 function setup() {
   createCanvas(720, 720);
- 
   serial = new p5.SerialPort(); 
   serial.on('list', printList);
   serial.on('connected', serverConnected); 
@@ -23,11 +19,10 @@ function setup() {
 function draw() {
   background(127);
   
-  fill(0, 0, 0);
-  ellipse(105, 100, 50, 50);
-  rect(80, 200, 50, 50);
-  triangle(80, 375, 108, 320, 136, 375);
-
+fill(0, 0, 0);
+ellipse(105, 100, 50, 50);
+rect(80, 200, 50, 50);
+triangle(80, 375, 108, 320, 136, 375);
 fill('red');
 rect(580, 70, 50, 50);
 fill('yellow');
@@ -39,29 +34,20 @@ rect(580, 370, 50, 50);
 
 }
 
-
 function mousePressed() {
-
-  
-  
-  var d = dist(mouseX, mouseY, 100, 100);
-
-
+var d = dist(mouseX, mouseY, 100, 100);
   if (d < 27 && d < 70) {
-   alert('circle')
- 
+   console.log('circle')
    console.log(d + "draw circle"); 
    serial.write("1");
    console.log("wrote one");
-   
-
   }
+
   else if ( d < 202 && d < 210) {
     alert('square'); 
     console.log(d);
     serial.write("2");
     console.log(d + "draw square"); 
-
   }
 
  else if ( d > 250 && d < 300 ) { 
@@ -69,8 +55,6 @@ function mousePressed() {
     console.log(d);
     serial.write("3");
     console.log(d + "draw triangle");
-
-
   }
 
    else if ( d > 500 && d < 510 ) { 
@@ -78,7 +62,6 @@ function mousePressed() {
     console.log(d);
     serial.write("4");
     console.log(d + "color red");
-
   }
 
    else if ( d > 510 && d < 525 ) { 
@@ -86,7 +69,6 @@ function mousePressed() {
     console.log(d);
     serial.write("5");
     console.log(d + "color yellow");
-
   }
 
    else if ( d > 530 && d < 550 ) { 
@@ -94,7 +76,6 @@ function mousePressed() {
     console.log(d);
     serial.write("6");
     console.log(d + "color blue");
-
   }
 
    else if ( d > 580 && d < 590 ) { 
@@ -102,15 +83,12 @@ function mousePressed() {
     console.log(d);
     serial.write("7");
     console.log(d + "color green");
-
   }
-
 
   else {
     console.log(d); 
   }
   
- 
 }
 
 function serialError(err) {
