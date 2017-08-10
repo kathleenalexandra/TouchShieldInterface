@@ -9,7 +9,6 @@ var greeting;
 var color; 
 var shape;
 
-
 function setup() {
   createCanvas(720, 720); 
   serial = new p5.SerialPort(); 
@@ -27,7 +26,6 @@ function setup() {
   textAlign(CENTER);
   textSize(50);
 
-
 input = createInput();
   input.position(60, 465);
   button = createButton('submit');
@@ -39,11 +37,9 @@ input = createInput();
   textSize(50);
 }
 
-
 function draw() {
   background('lightgrey');
 
-  
 fill('white');
 ellipse(105, 100, 50, 50);
 rect(80, 200, 50, 50);
@@ -63,28 +59,29 @@ text("GREEN", 600, 400);
 
 }
 
-
 function mousePressed() {
-  var d = dist(mouseX, mouseY, 100, 100);
+var d = dist(mouseX, mouseY, 100, 100);
 
   if (d < 27 && d < 70) {
-   console.log(d + "draw circle"); 
-   serial.write("1");
-   shape.html("circle");
-   console.log("wrote one");
+  console.log(d + "draw circle"); 
+  serial.write("1");
+  serial.write("\n");
+  shape.html("circle");
+  console.log("wrote one");
   }
 
   else if ( d < 202 && d < 210) {
     console.log(d);
     serial.write("2");
+    serial.write("\n");
     shape.html("square");
     console.log(d + "draw square"); 
   }
 
-
  else if ( d > 250 && d < 300 ) {  
     console.log(d);
     serial.write("3");
+    serial.write("\n");
     shape.html("triangle");
     console.log(d + "draw triangle");
   }
@@ -92,47 +89,44 @@ function mousePressed() {
    else if ( d > 490 && d < 505 ) { 
     console.log(d);
     serial.write("4");
+    serial.write("\n");
     color.html("red");
     console.log(d + "color red");
-
   }
 
    else if ( d > 508 && d < 520 ) { 
     console.log(d);
     serial.write("5");
+    serial.write("\n");
     color.html("yellow");
     console.log(d + "color yellow");
-
   }
 
    else if ( d > 525 && d < 540 ) { 
     console.log(d);
     serial.write("6");
+    serial.write("\n");
     color.html("blue");
     console.log(d + "color blue");
-
   }
 
    else if ( d > 571 && d < 580 ) { 
     console.log(d);
     serial.write("7");
+    serial.write("\n");
     color.html("green");
     console.log(d + "color green");
-
   }
-
+  
   else {
     console.log(d); 
   }
-  
- 
 }
 
 function greet() {
   var name = input.value();
   greeting.html(name);
   var mystring = String(name);
-  alert(mystring); 
   serial.write(mystring);
   serial.write("\n");
   input.value('');
@@ -154,7 +148,12 @@ function printList(portList) {
 }
 
 function serialEvent() {
-    inByte = Number(serial.read()); } 
+    var inString = serial.readStringUntil('\r\n');
+    if(inString.length >0){
+      inString.trim();
+      console.log(inString);
+    } 
+  } 
 
 function serverConnected() {
     console.log('connected to server.');
